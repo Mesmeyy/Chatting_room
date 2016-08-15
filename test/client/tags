@@ -1,0 +1,32 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+add_friend_yes	my_man_to_man.c	/^void add_friend_yes()$/;"	f
+buffer_I	my_man_to_man.c	/^GtkTextBuffer *buffer_I;$/;"	v
+buffer_history	my_man_to_man.c	/^GtkTextBuffer *buffer_history;$/;"	v
+choice_file	my_man_to_man.c	/^void choice_file(GtkWidget *widget,void * pointer)$/;"	f
+choice_whom	my_man_to_man.c	/^void choice_whom (void)$/;"	f
+del_friend_yes	my_man_to_man.c	/^void del_friend_yes()$/;"	f
+end	my_man_to_man.c	/^GtkTextIter start,end;$/;"	v
+entry_add_who	my_man_to_man.c	/^GtkWidget *entry_add_who;$/;"	v
+entry_del_who	my_man_to_man.c	/^GtkWidget *entry_del_who;$/;"	v
+entry_who	my_man_to_man.c	/^GtkWidget *entry_who;$/;"	v
+fileview	my_man_to_man.c	/^GtkWidget *fileview;$/;"	v
+man_conn_fd	my_man_to_man.c	/^int man_conn_fd;$/;"	v
+my_man_to_man	my_man_to_man.c	/^int my_man_to_man(int conn_fd)$/;"	f
+print_friend	my_man_to_man.c	/^void print_friend()$/;"	f
+recvfromo	my_man_to_man.c	/^void recvfromo(void)$/;"	f
+select_file_quit	my_man_to_man.c	/^void select_file_quit(GtkWidget *a,void *p)$/;"	f
+sen_name	my_man_to_man.c	/^    char sen_name[64];$/;"	m	struct:send__file	file:
+sen_nei	my_man_to_man.c	/^    char sen_nei[128];$/;"	m	struct:send__file	file:
+send__file	my_man_to_man.c	/^struct send__file $/;"	s	file:
+send_file	my_man_to_man.c	/^void send_file(GtkWidget *win,gpointer data)$/;"	f
+send_talk	my_man_to_man.c	/^void send_talk()$/;"	f
+show	my_man_to_man.c	/^void show(GtkWidget *wu,void * p)$/;"	f
+start	my_man_to_man.c	/^GtkTextIter start,end;$/;"	v
+text_view_fre_buffer	my_man_to_man.c	/^GtkTextBuffer *text_view_fre_buffer;$/;"	v
+whom	my_man_to_man.c	/^const char *whom;$/;"	v
+window	my_man_to_man.c	/^GtkWidget *window;$/;"	v

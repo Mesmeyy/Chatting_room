@@ -1,0 +1,19 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+add_friend	server_to_client_do.c	/^int add_friend(char *string,char *home)$/;"	f
+built_c_history	server_to_client_do.c	/^int built_c_history(struct user *home)$/;"	f
+built_s_history	server_to_client_do.c	/^int built_s_history(struct user *home)$/;"	f
+del_friend	server_to_client_do.c	/^int del_friend(char *string,char *string_home)\/\/string是要删的,string_home是主人$/;"	f
+do_the_son_do	server_to_client_do.c	/^void do_the_son_do(int count_choice,int conn_fd_address)$/;"	f
+find_friend	server_to_client_do.c	/^int find_friend(char *string,char *string_home)$/;"	f
+read_friend	server_to_client_do.c	/^struct add_friend *read_friend(char *whom)$/;"	f
+read_in	server_to_client_do.c	/^struct user* read_in()$/;"	f
+read_server_line	server_to_client_do.c	/^int read_server_line(char *string)$/;"	f
+send_file	server_to_client_do.c	/^void send_file(char *all,char *to,char *string_home)\/\/所有内容\/给谁\/谁发的$/;"	f
+send_history	server_to_client_do.c	/^void send_history(struct user *home)$/;"	f
+write_in	server_to_client_do.c	/^void write_in(struct user *phead)$/;"	f
+write_in_history	server_to_client_do.c	/^void write_in_history(char *string,char *string_home)$/;"	f
