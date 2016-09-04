@@ -28,6 +28,50 @@ void ding() {
     entry4 = gtk_entry_new_with_max_length(20);
     entry5 = gtk_entry_new_with_max_length(20);
 }
+void ok_denglu(void)
+{
+    GtkWidget * dialog;
+    GtkMessageType type;
+    gchar *message;
+    message = "登陆成功,撩妹之旅即将开始";
+    type = GTK_MESSAGE_INFO;
+    dialog = gtk_message_dialog_new(NULL,GTK_DIALOG_MODAL|GTK_DIALOG_DESTROY_WITH_PARENT,type,GTK_BUTTONS_OK,"%s",message);
+    gtk_dialog_run(GTK_DIALOG(dialog));
+    gtk_widget_destroy(dialog);
+}
+void sec_denglu(void)
+{
+    GtkWidget * dialog;
+    GtkMessageType type;
+    gchar *message;
+    message = "这个账号有人登陆中,密码可能泄露,请及时拨打客服改动您的密码,服务热线:15891777434";
+    type = GTK_MESSAGE_WARNING;
+    dialog = gtk_message_dialog_new(NULL,GTK_DIALOG_MODAL|GTK_DIALOG_DESTROY_WITH_PARENT,type,GTK_BUTTONS_OK,"%s",message);
+    gtk_dialog_run(GTK_DIALOG(dialog));
+    gtk_widget_destroy(dialog);
+}
+void nouser_denglu(void)
+{
+    GtkWidget *dialog;
+    GtkMessageType type;
+    gchar *message;
+    message = "亲,这个账号不存在,请仔细想想账号名称,祝你好运!!!";
+    type = GTK_MESSAGE_ERROR;
+    dialog = gtk_message_dialog_new(NULL,GTK_DIALOG_MODAL|GTK_DIALOG_DESTROY_WITH_PARENT,type,GTK_BUTTONS_OK,"%s",message);
+    gtk_dialog_run(GTK_DIALOG(dialog));
+    gtk_widget_destroy(dialog);
+}
+void wrong_denglu(void)
+{
+    GtkWidget * dialog;
+    GtkMessageType type;
+    gchar *message;
+    message = "密码输入错误,请重新输入!";
+    type = GTK_MESSAGE_ERROR;
+    dialog = gtk_message_dialog_new(NULL,GTK_DIALOG_MODAL|GTK_DIALOG_DESTROY_WITH_PARENT,type,GTK_BUTTONS_OK,"%s",message);
+    gtk_dialog_run(GTK_DIALOG(dialog));
+    gtk_widget_destroy(dialog);
+}
 int  on_button_clicked()
 {
     while(1){
@@ -39,7 +83,9 @@ int  on_button_clicked()
 
         const gchar *username = gtk_entry_get_text(GTK_ENTRY(entry1));
         const gchar *password = gtk_entry_get_text(GTK_ENTRY(entry2));
-        
+        if((strlen(username) == 0)|(strlen(password) == 0)) {
+            break;
+        }
         send(win_conn_fd,username,strlen(username),0);
         recv(win_conn_fd,recv_username,32,0);
         printf("%s,recv_username\n",recv_username);
@@ -48,11 +94,22 @@ int  on_button_clicked()
         printf("%s,recv_password\n",recv_password);
 
         if((strcmp("yes",recv_username) == 0) &&(strcmp("yes",recv_password) == 0)) {
-            //gtk_widget_destroy(window);
+            ok_denglu();
             my_choice(win_conn_fd);
             gtk_widget_destroy(window);
         }
-        else {
+        if((strcmp("sec",recv_username) == 0) && (strcmp("no",recv_password) == 0)) {
+            sec_denglu();
+            send(win_conn_fd,"wrong",strlen("wrong")+1,0);
+            exit(0);
+        }
+        if(strcmp("no",recv_username) == 0 ) {
+            nouser_denglu();
+            send(win_conn_fd,"wrong",strlen("wrong")+1,0);
+            exit(0);
+        }
+        if((strcmp("yes",recv_username) == 0) && ( (strcmp("no",recv_password)) == 0 )) {
+            wrong_denglu();
             send(win_conn_fd,"wrong",strlen("wrong")+1,0);
             exit(0);
         }
@@ -68,6 +125,11 @@ void  my_destory(GtkWidget *window,gpointer *data)
     const gchar *password1 = gtk_entry_get_text(GTK_ENTRY(entry4));
     const gchar *password2 = gtk_entry_get_text(GTK_ENTRY(entry5));
     printf("password1:%s,,,password2:%s\n",password1,password2);
+    /*if((strlen(username) == 0)|(strlen(password1) == 0)|(strlen(password2) == 0)) {
+        username = gtk_entry_get_text(GTK_ENTRY(entry3));
+        password1 = gtk_entry_get_text(GTK_ENTRY(entry4));
+        password2 = 
+}*/
     if(strcmp(password1,password2) != 0) {
         send(win_conn_fd,"wrong",strlen("wrong")+1,0);
         exit(0);

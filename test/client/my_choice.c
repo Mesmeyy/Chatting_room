@@ -48,10 +48,12 @@ void do_button3(GtkWidget *button3,gpointer data)
 }
 void recvfun()
 {
+    
     int i = 0;
     int locat = 0;
     int fd = 0;
     char recv_buffer[512];
+    printf("哈哈哈de热潮vfun!\n");
     while(1) {
         memset(recv_buffer,0,512);
         usleep(100);
@@ -82,7 +84,11 @@ void recvfun()
             
             if((fd = open(history_file_name,O_CREAT|O_APPEND|O_RDWR),0664) < 0) {
                 printf("建立文件失败!\n");
+                
             }
+            printf("文件建立或者已经打开\n");
+            printf("放进去的聊天记录是:!\n");
+            printf("%s\n",neirong);
             write(fd,neirong,strlen(neirong));
             close(fd);
             continue;

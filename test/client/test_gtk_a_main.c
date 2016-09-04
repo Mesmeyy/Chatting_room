@@ -13,12 +13,18 @@
 #include<sys/types.h>
 #include<string.h>
 #include<stdlib.h>
+#include<signal.h>
 #include"my_window.h"
 GtkWidget *window;
+void noc()
+{
+    printf("不许屏蔽!\n");
+}
 int main(int argc,char *argv[])
 {
     int conn_fd ;
     struct sockaddr_in  serv_addr;
+    signal(SIGINT,noc);
 
     memset(&serv_addr,0,sizeof(struct sockaddr_in));
     serv_addr.sin_family = AF_INET;

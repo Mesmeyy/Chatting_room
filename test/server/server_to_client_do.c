@@ -17,6 +17,10 @@
 #include<errno.h>
 #include"server_to_client_do.h"
 #include"my_struct.h"
+#include<errno.h>
+#include<time.h>
+#include"mysql.h"
+time_t nowtime;
 int cou = 0;
 struct user* read_in(void);
 struct add_friend *read_friend(char *string_home);
@@ -102,6 +106,40 @@ void do_the_son_do(int count_choice,int conn_fd_address)
             pread->conn_user_fd = 0;
             strcpy(pread->username,chun_name);
             strcpy(pread->password,chun_password);
+            printf("chun_name:%s\n",chun_name);
+            strcat(chun_name,"\0");
+            printf("chun_password:%s\n",chun_password);
+            strcat(chun_password,"\0");
+            
+            MYSQL *connect;
+            connect = mysql_init(NULL);
+            char insert[256];
+            memset(insert,0,256);
+            if(connect == NULL) {
+                printf("初始化数据库失败!\n");
+            }
+            connect = mysql_real_connect(connect,"127.0.0.1","root","548946","talkroom",0,NULL,0);
+            strcpy(insert,"INSERT INTO users (name,password) VALUES ('");
+            strcat(insert,chun_name);
+            strcat(insert,"','");
+            strcat(insert,chun_password);
+            strcat(insert,"')");
+        
+            printf("insert:%s\n",insert);
+            int f = mysql_query(connect,insert);
+            
+
+            if(f == 0) {
+            printf("插入数据成功!\n");
+            }
+            if(f != 0) {
+                perror("**********");
+            }
+            printf("f = %d\n",f);
+            mysql_close(connect);
+                         
+               
+            
             pread->next = NULL;
             pbefore->next = pread;
             pbefore = phead;
@@ -215,10 +253,11 @@ void do_the_son_do(int count_choice,int conn_fd_address)
             while(psearch != NULL) {
                 if((strcmp(psearch->username,recv_buffer) == 0)) {
                     if(psearch->conn_user_fd != 0 ) {
-                        send(conn_fd_address,"no",2,0);
+                        send(conn_fd_address,"sec",4,0);
                         count++;
                         break;
                     }
+                    
                     printf("这个人之前没有上线!\n");
                     count++;
                     flag = 1;
@@ -434,7 +473,10 @@ void do_the_son_do(int count_choice,int conn_fd_address)
                 memset(send_finally_m,0,256);
                 memset(send_finally_o,0,256);
                 
-                strcpy(send_finally_o,psearch->username);
+                time(&nowtime);
+                strcpy(send_finally_o,ctime(&nowtime));
+                //strcat(send_finally_o,"/");
+                strcat(send_finally_o,psearch->username);
                 strcat(send_finally_o," :");
                 strcat(send_finally_o,"\n");
                 strcat(send_finally_o,chun_send_nei);
@@ -444,7 +486,9 @@ void do_the_son_do(int count_choice,int conn_fd_address)
                 
                 usleep(100);
                 
-                strcpy(send_finally_m,"I : \n");
+                strcpy(send_finally_m,ctime(&nowtime));
+                //strcat(send_finally_m,"/");
+                strcat(send_finally_m,"I : \n");
                 strcat(send_finally_m,chun_send_nei);
                 strcat(send_finally_m,"\n");
                 send(psearch->conn_user_fd,send_finally_m,strlen(send_finally_m)+1,0);

@@ -12,10 +12,13 @@
 #include<string.h>
 #include<netinet/in.h>
 #include<unistd.h>
-#include<sys/types.h>
+#include<sys/stat.h>
+#include<fcntl.h>
 #include<pthread.h>
 #include"server_to_client_do.h"
+#include<signal.h>
 #include"my_struct.h"
+#include"mysql.h"
 #define LISTENQ 12
 
 
@@ -27,13 +30,35 @@ void pthread_son_do(int *conn_fd)
     int every_choice = 1;
     do_the_son_do(every_choice,*conn_fd);
 }
+void handler(int signal)
+{
+    printf("屏蔽失败!\n");
+    return ;
+}
 int main()
 {
     int sock_fd;
     int conn_fd;
     int optval;
+    MYSQL *connect;
     
+
     struct sockaddr_in  cli_addr,ser_addr;
+
+    connect = mysql_init(NULL);
+    if(connect == NULL) {
+        printf("初始化数据库失败!\n");
+        return EXIT_FAILURE;
+    }
+    connect = mysql_real_connect(connect,"127.0.0.1","root","548946","talkroom",0,NULL,0);
+    if(connect) {
+        printf("连接成功!\n");
+    }
+    else {
+        printf("连接失败!\n");
+    }
+    
+    signal(SIGINT,handler);
 
     sock_fd = socket(AF_INET,SOCK_STREAM,0);
     if(sock_fd < 0) {

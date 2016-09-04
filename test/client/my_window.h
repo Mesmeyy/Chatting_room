@@ -13,4 +13,8 @@ void chang_passwd(void);
 void new_user(void);
 void ding(void);
 int my_window(int conn_fd);
+void ok_denglu(void);
+void sec_denglu(void);
+void wrong_denglu(void);
+void nouser_denglu(void);
 #endif

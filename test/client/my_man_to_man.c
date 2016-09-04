@@ -41,11 +41,17 @@ int man_conn_fd;
 void choice_whom (void)
 {
     whom = gtk_entry_get_text(GTK_ENTRY(entry_who));
+    if(strlen(whom) == 0) {
+        return ;
+    }
     printf("whom:%s\n",whom);
 }
 void add_friend_yes()
 {
     const gchar *friend_name = gtk_entry_get_text(GTK_ENTRY(entry_add_who));
+    if(strlen(friend_name) == 0) {
+        return ;
+    }
     char *final_add_friend ;
     final_add_friend = (char *)malloc(sizeof(char) * 64);
     memset(final_add_friend,0,64);
@@ -60,6 +66,9 @@ void add_friend_yes()
 void del_friend_yes()
 {
     const gchar *friend_name = gtk_entry_get_text(GTK_ENTRY(entry_del_who));
+    if(strlen(friend_name) == 0) {
+        return ;
+    }
     char *final_del_friend ;
     final_del_friend = (char *)malloc(sizeof(char) * 64);
     memset(final_del_friend,0,64);
@@ -321,6 +330,7 @@ int my_man_to_man(int conn_fd)
 {
     pthread_t thid ;
     pthread_create(&thid,NULL,(void*)recvfromo,NULL);
+    
     man_conn_fd = conn_fd;
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_default_size(GTK_WINDOW(window),500,600);
